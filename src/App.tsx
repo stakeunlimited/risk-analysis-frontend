@@ -23,7 +23,7 @@ interface ProtocolData {
 const App: React.FC = () => {
   const [selectedChain, setSelectedChain] = useState<string>('all');
   const [protocols, setProtocols] = useState<ProtocolData[]>([]);
-    const [currentPage, setCurrentPage] = useState<'dashboard' | 'stablecoin' | 'audit' | 'security'>('dashboard');
+    const [currentPage, setCurrentPage] = useState<'dashboard' | 'stablecoin' | 'audit' | 'security'>('security');
     
 
   const mockData = [
