@@ -73,7 +73,7 @@ const App: React.FC = () => {
               <div className="flex items-center cursor-pointer" onClick={() => setCurrentPage('dashboard')}>
                 <Shield className="h-8 w-8 text-violet-500" />
                 <span className="ml-2 text-xl font-bold bg-gradient-to-r from-violet-400 to-blue-500 text-transparent bg-clip-text">
-                  DeFi Risk Analyzer
+                  D'Analysis
                 </span>
               </div>
 

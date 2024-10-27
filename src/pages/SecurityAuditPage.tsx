@@ -15,7 +15,7 @@ const SecurityAuditPage: React.FC = () => {
   const [url, setUrl] = useState(defaultUrl);
   const [loading, setLoading] = useState(false);
   const [auditResults, setAuditResults] = useState<SecurityAuditResult[]>([]);
-  const [auditScore, setAuditScore] = useState<number | null>(null);
+  const [auditScore, setAuditScore] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const formatUrl = (url: string) => {
@@ -69,7 +69,7 @@ const SecurityAuditPage: React.FC = () => {
       //   }
       // ];
 
-      const overallScore = data.weighted_average_score;
+      const overallScore = parseFloat(data.weighted_average_score.toString()).toFixed(2);
       console.log({ overallScore });
 
       setAuditResults(data.scores);
