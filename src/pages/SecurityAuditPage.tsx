@@ -31,51 +31,47 @@ const SecurityAuditPage: React.FC = () => {
     setError(null);
     
     // API URL'sini oluştur
-    const apiUrl = `https://defi-risk-analysis.vercel.app/openai/analyze-security-audit?url=${encodeURIComponent(url)}`;
+    const apiUrl = `https://defi-risk-analysis.vercel.app/openai/analyze-security-audit?url=${url}`;
+    console.log({ apiUrl });
     
     try {
-      const response = await fetch(apiUrl, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        mode: 'no-cors'
-      });
-  
-
-      const data = await response.json();
+      const response = await fetch(apiUrl);
+      const dataRaw = await response.json();
+      const data = JSON.parse(dataRaw.content);
       console.log('API Response:', data);
 
       // Mock data kullanarak test edelim
-      const mockData = [
-        {
-          focus_area: 'Smart Contract Vulnerabilities',
-          importance: 'High',
-          score: 5,
-          description: 'The audit report from Paladin indicates that the reviewed smart contracts exhibit no high-priority vulnerabilities such as reentrancy or overflow. The contracts are well-structured to handle potential security breaches.'
-        },
-        {
-          focus_area: 'Code Quality & Documentation',
-          importance: 'Medium',
-          score: 4,
-          description: 'The codebase is well-documented with clear comments and follows best practices. The architecture is modular and maintainable.'
-        },
-        {
-          focus_area: 'Access Control',
-          importance: 'High',
-          score: 5,
-          description: 'Proper access control mechanisms are implemented with role-based permissions and secure ownership management.'
-        },
-        {
-          focus_area: 'External Dependencies',
-          importance: 'Medium',
-          score: 4,
-          description: 'The project uses well-audited external dependencies and libraries, with proper version control and security considerations.'
-        }
-      ];
+      // const mockData = [
+      //   {
+      //     focus_area: 'Smart Contract Vulnerabilities',
+      //     importance: 'High',
+      //     score: 5,
+      //     description: 'The audit report from Paladin indicates that the reviewed smart contracts exhibit no high-priority vulnerabilities such as reentrancy or overflow. The contracts are well-structured to handle potential security breaches.'
+      //   },
+      //   {
+      //     focus_area: 'Code Quality & Documentation',
+      //     importance: 'Medium',
+      //     score: 4,
+      //     description: 'The codebase is well-documented with clear comments and follows best practices. The architecture is modular and maintainable.'
+      //   },
+      //   {
+      //     focus_area: 'Access Control',
+      //     importance: 'High',
+      //     score: 5,
+      //     description: 'Proper access control mechanisms are implemented with role-based permissions and secure ownership management.'
+      //   },
+      //   {
+      //     focus_area: 'External Dependencies',
+      //     importance: 'Medium',
+      //     score: 4,
+      //     description: 'The project uses well-audited external dependencies and libraries, with proper version control and security considerations.'
+      //   }
+      // ];
 
-      setAuditResults(mockData);
+      const overallScore = data.weighted_average_score;
+      console.log({ overallScore });
+
+      setAuditResults(data.scores);
     } catch (error) {
       console.error('Error:', error);
       // Hata durumunda da mock data'yı gösterelim
