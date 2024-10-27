@@ -15,6 +15,7 @@ const SecurityAuditPage: React.FC = () => {
   const [url, setUrl] = useState(defaultUrl);
   const [loading, setLoading] = useState(false);
   const [auditResults, setAuditResults] = useState<SecurityAuditResult[]>([]);
+  const [auditScore, setAuditScore] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const formatUrl = (url: string) => {
@@ -72,6 +73,7 @@ const SecurityAuditPage: React.FC = () => {
       console.log({ overallScore });
 
       setAuditResults(data.scores);
+      setAuditScore(overallScore);
     } catch (error) {
       console.error('Error:', error);
       // Hata durumunda da mock data'yı gösterelim
@@ -128,37 +130,6 @@ const SecurityAuditPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-[#12141a] rounded-xl p-6 border border-blue-500/10 hover:border-blue-500/30 transition-all duration-300">
-          <div className="flex items-center space-x-4">
-            <Shield className="h-8 w-8 text-blue-500" />
-            <div>
-              <h3 className="text-lg font-medium text-gray-200">Total Audits</h3>
-              <p className="text-2xl font-bold text-blue-400">10,234+</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-[#12141a] rounded-xl p-6 border border-cyan-500/10 hover:border-cyan-500/30 transition-all duration-300">
-          <div className="flex items-center space-x-4">
-            <Lock className="h-8 w-8 text-cyan-500" />
-            <div>
-              <h3 className="text-lg font-medium text-gray-200">Success Rate</h3>
-              <p className="text-2xl font-bold text-cyan-400">99.9%</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-[#12141a] rounded-xl p-6 border border-teal-500/10 hover:border-teal-500/30 transition-all duration-300">
-          <div className="flex items-center space-x-4">
-            <CheckCircle className="h-8 w-8 text-teal-500" />
-            <div>
-              <h3 className="text-lg font-medium text-gray-200">Verified Projects</h3>
-              <p className="text-2xl font-bold text-teal-400">5,000+</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Input Section */}
       <div className="bg-[#12141a] rounded-xl p-8 border border-blue-500/10 mb-8 max-w-3xl mx-auto">
         <div className="space-y-6">
@@ -210,6 +181,20 @@ const SecurityAuditPage: React.FC = () => {
           </button>
         </div>
       </div>
+
+    {auditScore && (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="bg-[#12141a] rounded-xl p-6 border border-blue-500/10 hover:border-blue-500/30 transition-all duration-300">
+          <div className="flex items-center space-x-4">
+            <Shield className="h-8 w-8 text-blue-500" />
+            <div>
+              <h3 className="text-lg font-medium text-gray-200">Overall Security Score</h3>
+              <p className="text-2xl font-bold text-blue-400">{ auditScore }</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
 
       {/* Results Table */}
       {auditResults && auditResults.length > 0 && (
