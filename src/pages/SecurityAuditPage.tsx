@@ -40,7 +40,7 @@ const SecurityAuditPage: React.FC = () => {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        mode: 'cors'
+        mode: 'no-cors'
       });
   
 
