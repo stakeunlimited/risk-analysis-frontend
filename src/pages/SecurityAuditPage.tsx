@@ -10,7 +10,7 @@ interface SecurityAuditResult {
 }
 
 const SecurityAuditPage: React.FC = () => {
-    const defaultUrl = "https://paladinsec.co/assets/audits/20230402_Paladin_TraderJoe_DEX2.1_Final_Report.pdf";
+  const defaultUrl = 'https://paladinsec.co/assets/audits/20230402_Paladin_TraderJoe_DEX2.1_Final_Report.pdf';
 
   const [url, setUrl] = useState(defaultUrl);
   const [loading, setLoading] = useState(false);
@@ -30,11 +30,11 @@ const SecurityAuditPage: React.FC = () => {
   const handleAuditCheck = async () => {
     setLoading(true);
     setError(null);
-    
+
     // API URL'sini oluştur
     const apiUrl = `https://defi-risk-analysis.vercel.app/openai/analyze-security-audit?url=${url}`;
     console.log({ apiUrl });
-    
+
     try {
       const response = await fetch(apiUrl);
       const dataRaw = await response.json();
@@ -82,26 +82,30 @@ const SecurityAuditPage: React.FC = () => {
           focus_area: 'Smart Contract Vulnerabilities',
           importance: 'High',
           score: 5,
-          description: 'The audit report from Paladin indicates that the reviewed smart contracts exhibit no high-priority vulnerabilities such as reentrancy or overflow. The contracts are well-structured to handle potential security breaches.'
+          description:
+            'The audit report from Paladin indicates that the reviewed smart contracts exhibit no high-priority vulnerabilities such as reentrancy or overflow. The contracts are well-structured to handle potential security breaches.',
         },
         {
           focus_area: 'Code Quality & Documentation',
           importance: 'Medium',
           score: 4,
-          description: 'The codebase is well-documented with clear comments and follows best practices. The architecture is modular and maintainable.'
+          description:
+            'The codebase is well-documented with clear comments and follows best practices. The architecture is modular and maintainable.',
         },
         {
           focus_area: 'Access Control',
           importance: 'High',
           score: 5,
-          description: 'Proper access control mechanisms are implemented with role-based permissions and secure ownership management.'
+          description:
+            'Proper access control mechanisms are implemented with role-based permissions and secure ownership management.',
         },
         {
           focus_area: 'External Dependencies',
           importance: 'Medium',
           score: 4,
-          description: 'The project uses well-audited external dependencies and libraries, with proper version control and security considerations.'
-        }
+          description:
+            'The project uses well-audited external dependencies and libraries, with proper version control and security considerations.',
+        },
       ];
       setAuditResults(mockData);
     } finally {
@@ -111,10 +115,14 @@ const SecurityAuditPage: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Secure': return 'text-green-400 bg-green-500/10';
-      case 'Warning': return 'text-yellow-400 bg-yellow-500/10';
-      case 'Critical': return 'text-red-400 bg-red-500/10';
-      default: return 'text-gray-400 bg-gray-500/10';
+      case 'Secure':
+        return 'text-green-400 bg-green-500/10';
+      case 'Warning':
+        return 'text-yellow-400 bg-yellow-500/10';
+      case 'Critical':
+        return 'text-red-400 bg-red-500/10';
+      default:
+        return 'text-gray-400 bg-gray-500/10';
     }
   };
 
@@ -139,17 +147,13 @@ const SecurityAuditPage: React.FC = () => {
               Enter Contract Details
             </h2>
           </div>
-          {error && (
-            <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400">
-              {error}
-            </div>
-          )}
+          {error && <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400">{error}</div>}
           <input
             type="text"
             value={formatUrl(url)}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="Enter audit report URL..."
-            defaultValue={"defaultUrl"}
+            defaultValue={'defaultUrl'}
             className="w-full bg-[#1a1d25] text-white rounded-xl px-6 py-4 
                      border border-blue-500/20 focus:border-blue-500 
                      focus:ring-2 focus:ring-blue-500/20 focus:outline-none
@@ -182,19 +186,19 @@ const SecurityAuditPage: React.FC = () => {
         </div>
       </div>
 
-    {auditScore && (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-[#12141a] rounded-xl p-6 border border-blue-500/10 hover:border-blue-500/30 transition-all duration-300">
-          <div className="flex items-center space-x-4">
-            <Shield className="h-8 w-8 text-blue-500" />
-            <div>
-              <h3 className="text-lg font-medium text-gray-200">Overall Security Score</h3>
-              <p className="text-2xl font-bold text-blue-400">{ auditScore }</p>
+      {auditScore && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="bg-[#12141a] rounded-xl p-6 border border-blue-500/10 hover:border-blue-500/30 transition-all duration-300">
+            <div className="flex items-center space-x-4">
+              <Shield className="h-8 w-8 text-blue-500" />
+              <div>
+                <h3 className="text-lg font-medium text-gray-200">Overall Security Score</h3>
+                <p className="text-2xl font-bold text-blue-400">{auditScore}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    )}
+      )}
 
       {/* Results Table */}
       {auditResults && auditResults.length > 0 && (
@@ -218,30 +222,30 @@ const SecurityAuditPage: React.FC = () => {
               <tbody className="divide-y divide-blue-500/10">
                 {auditResults.map((result, index) => (
                   <tr key={index} className="hover:bg-blue-500/5 transition-colors">
-                    <td className="px-6 py-4 font-medium text-white">
-                      {result.focus_area}
-                    </td>
+                    <td className="px-6 py-4 font-medium text-white">{result.focus_area}</td>
                     <td className="px-6 py-4">
-                      <span className={`px-4 py-1.5 rounded-full text-sm font-medium ${
-                        result.importance.toLowerCase() === 'high' 
-                          ? 'bg-red-500/10 text-red-400' 
-                          : result.importance.toLowerCase() === 'medium'
-                          ? 'bg-yellow-500/10 text-yellow-400'
-                          : 'bg-green-500/10 text-green-400'
-                      }`}>
+                      <span
+                        className={`px-4 py-1.5 rounded-full text-sm font-medium ${
+                          result.importance.toLowerCase() === 'high'
+                            ? 'bg-red-500/10 text-red-400'
+                            : result.importance.toLowerCase() === 'medium'
+                              ? 'bg-yellow-500/10 text-yellow-400'
+                              : 'bg-green-500/10 text-green-400'
+                        }`}
+                      >
                         {result.importance}
                       </span>
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-3">
                         <div className="w-24 bg-[#1a1d25] rounded-full h-2.5">
-                          <div 
+                          <div
                             className={`h-2.5 rounded-full ${
-                              result.score >= 4 
-                                ? 'bg-gradient-to-r from-green-500 to-emerald-500' 
+                              result.score >= 4
+                                ? 'bg-gradient-to-r from-green-500 to-emerald-500'
                                 : result.score >= 3
-                                ? 'bg-gradient-to-r from-yellow-500 to-orange-500'
-                                : 'bg-gradient-to-r from-red-500 to-pink-500'
+                                  ? 'bg-gradient-to-r from-yellow-500 to-orange-500'
+                                  : 'bg-gradient-to-r from-red-500 to-pink-500'
                             }`}
                             style={{ width: `${(result.score / 5) * 100}%` }}
                           />
@@ -269,9 +273,7 @@ const SecurityAuditPage: React.FC = () => {
       )}
 
       {!loading && !error && auditResults && auditResults.length === 0 && url && (
-        <div className="text-center py-12 text-gray-400">
-          No audit results found. Please try a different URL.
-        </div>
+        <div className="text-center py-12 text-gray-400">No audit results found. Please try a different URL.</div>
       )}
     </div>
   );

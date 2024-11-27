@@ -1,7 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, AreaChart, Area, Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
-import { Activity, TrendingUp, DollarSign, BarChart2, Shield, Zap, Lock, Globe, AlertTriangle, FileCheck } from 'lucide-react';
-import {ShieldCheck } from 'lucide-react'; // ShieldCheck ikonunu ekledik
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+} from 'recharts';
+import {
+  Activity,
+  TrendingUp,
+  DollarSign,
+  BarChart2,
+  Shield,
+  Zap,
+  Lock,
+  Globe,
+  AlertTriangle,
+  FileCheck,
+} from 'lucide-react';
+import { ShieldCheck } from 'lucide-react'; // ShieldCheck ikonunu ekledik
 import SecurityAuditPage from './pages/SecurityAuditPage'; // Yeni sayfayı import ediyoruz
 
 import StablecoinPage from './pages/StableCoinPage';
@@ -24,8 +49,7 @@ interface ProtocolData {
 const App: React.FC = () => {
   const [selectedChain, setSelectedChain] = useState<string>('all');
   const [protocols, setProtocols] = useState<ProtocolData[]>([]);
-    const [currentPage, setCurrentPage] = useState<'dashboard' | 'stablecoin' | 'audit' | 'security'>('dashboard');
-    
+  const [currentPage, setCurrentPage] = useState<'dashboard' | 'stablecoin' | 'audit' | 'security'>('dashboard');
 
   const mockData = [
     {
@@ -38,7 +62,7 @@ const App: React.FC = () => {
       validators: 543211,
       age: 8,
       marketCap: 245.6,
-      volatility: 0.23
+      volatility: 0.23,
     },
     {
       name: 'BSC',
@@ -50,7 +74,7 @@ const App: React.FC = () => {
       validators: 21,
       age: 3,
       marketCap: 45.2,
-      volatility: 0.45
+      volatility: 0.45,
     },
     // ... diğer protokoller
   ];
@@ -82,9 +106,10 @@ const App: React.FC = () => {
                 <button
                   onClick={() => setCurrentPage('stablecoin')}
                   className={`px-4 py-2 rounded-xl transition-all duration-300
-                    ${currentPage === 'stablecoin' 
-                      ? 'bg-gradient-to-r from-violet-500/20 to-blue-500/20 border-violet-500/40 text-white' 
-                      : 'bg-gradient-to-r from-violet-500/10 to-blue-500/10 border-violet-500/20'
+                    ${
+                      currentPage === 'stablecoin'
+                        ? 'bg-gradient-to-r from-violet-500/20 to-blue-500/20 border-violet-500/40 text-white'
+                        : 'bg-gradient-to-r from-violet-500/10 to-blue-500/10 border-violet-500/20'
                     } border hover:border-violet-500/40 text-white/90 hover:text-white
                     shadow-lg shadow-violet-500/5 hover:shadow-violet-500/20`}
                 >
@@ -94,9 +119,10 @@ const App: React.FC = () => {
                 <button
                   onClick={() => setCurrentPage('audit')}
                   className={`px-4 py-2 rounded-xl transition-all duration-300 flex items-center space-x-2
-                    ${currentPage === 'audit' 
-                      ? 'bg-gradient-to-r from-emerald-500/20 to-green-500/20 border-emerald-500/40 text-white' 
-                      : 'bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-emerald-500/20'
+                    ${
+                      currentPage === 'audit'
+                        ? 'bg-gradient-to-r from-emerald-500/20 to-green-500/20 border-emerald-500/40 text-white'
+                        : 'bg-gradient-to-r from-emerald-500/10 to-green-500/10 border-emerald-500/20'
                     } border hover:border-emerald-500/40 text-white/90 hover:text-white
                     shadow-lg shadow-emerald-500/5 hover:shadow-emerald-500/20`}
                 >
@@ -108,9 +134,10 @@ const App: React.FC = () => {
                 <button
                   onClick={() => setCurrentPage('security')}
                   className={`px-4 py-2 rounded-xl transition-all duration-300 flex items-center space-x-2
-                    ${currentPage === 'security' 
-                      ? 'bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-blue-500/40 text-white' 
-                      : 'bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border-blue-500/20'
+                    ${
+                      currentPage === 'security'
+                        ? 'bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-blue-500/40 text-white'
+                        : 'bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border-blue-500/20'
                     } border hover:border-blue-500/40 text-white/90 hover:text-white
                     shadow-lg shadow-blue-500/5 hover:shadow-blue-500/20`}
                 >
@@ -140,10 +167,11 @@ const App: React.FC = () => {
         <StablecoinPage />
       ) : currentPage === 'audit' ? (
         <AuditPage />
-      ) : <HomePage />}
+      ) : (
+        <HomePage />
+      )}
     </div>
   );
 };
-
 
 export default App;

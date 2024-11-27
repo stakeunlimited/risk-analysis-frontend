@@ -7,7 +7,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "flint": "yarn format & yarn lint",
+    "format": "prettier --write \"src/**/*.tsx\"",
+    "lint": "yarn eslint '*/**/*.tsx' --fix"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -45,8 +48,19 @@
     ]
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.15.0",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
     "autoprefixer": "^10.4.20",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "globals": "^15.12.0",
     "postcss": "^8.4.47",
+    "prettier": "^3.4.1",
     "tailwindcss": "^3.4.14"
   }
 }

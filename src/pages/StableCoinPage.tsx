@@ -27,7 +27,7 @@ const mockData: CoinData[] = [
     price: 1.001,
     priceChange: '+0.03%',
     fdv: '80B',
-    age: '1000 Days'
+    age: '1000 Days',
   },
   {
     symbol: 'USDC',
@@ -39,7 +39,7 @@ const mockData: CoinData[] = [
     price: 1.002,
     priceChange: '+0.02%',
     fdv: '65B',
-    age: '900 Days'
+    age: '900 Days',
   },
   {
     symbol: 'DAI',
@@ -51,7 +51,7 @@ const mockData: CoinData[] = [
     price: 1.003,
     priceChange: '+0.04%',
     fdv: '50B',
-    age: '800 Days'
+    age: '800 Days',
   },
   {
     symbol: 'BUSD',
@@ -63,7 +63,7 @@ const mockData: CoinData[] = [
     price: 1.001,
     priceChange: '+0.01%',
     fdv: '35B',
-    age: '700 Days'
+    age: '700 Days',
   },
   {
     symbol: 'FRAX',
@@ -75,8 +75,8 @@ const mockData: CoinData[] = [
     price: 1.004,
     priceChange: '+0.02%',
     fdv: '20B',
-    age: '600 Days'
-  }
+    age: '600 Days',
+  },
 ];
 
 const StablecoinPage: React.FC = () => {
@@ -89,7 +89,7 @@ const StablecoinPage: React.FC = () => {
     'Platform-Based Utility Tokens',
     'Exchange-Issued Asset Tokens',
     'Wrapped-Tokens',
-    'More'
+    'More',
   ];
   const chainOptions = [
     { name: 'All Chains', icon: <Shield className="h-4 w-4" /> },
@@ -101,8 +101,6 @@ const StablecoinPage: React.FC = () => {
     { name: 'Polygon', icon: 'P', color: 'text-purple-400' },
   ];
 
-
-
   const getProgressBars = (score: number) => {
     return (
       <div className="flex items-center gap-1">
@@ -110,10 +108,7 @@ const StablecoinPage: React.FC = () => {
           {[...Array(10)].map((_, i) => (
             <div
               key={i}
-              className={`h-1.5 w-3 rounded-sm ${i < Math.floor(score / 10)
-                  ? 'bg-violet-500'
-                  : 'bg-gray-700'
-                }`}
+              className={`h-1.5 w-3 rounded-sm ${i < Math.floor(score / 10) ? 'bg-violet-500' : 'bg-gray-700'}`}
             />
           ))}
         </div>
@@ -166,9 +161,11 @@ const StablecoinPage: React.FC = () => {
               key={category}
               onClick={() => setSelectedCategory(category)}
               className={`px-4 py-2 rounded-xl 
-                       ${selectedCategory === category
-                  ? 'bg-violet-500/20 border-violet-500/40 text-white'
-                  : 'bg-[#12141a] border-violet-500/10 text-gray-400'}
+                       ${
+                         selectedCategory === category
+                           ? 'bg-violet-500/20 border-violet-500/40 text-white'
+                           : 'bg-[#12141a] border-violet-500/10 text-gray-400'
+                       }
                        border hover:border-violet-500/40 transition-all duration-300`}
             >
               {category}
@@ -187,9 +184,11 @@ const StablecoinPage: React.FC = () => {
               key={chain.name}
               onClick={() => setSelectedChain(chain.name)}
               className={`flex items-center space-x-2 px-4 py-2 rounded-xl 
-                         ${selectedChain === chain.name
-                  ? 'bg-violet-500/20 border-violet-500/40 text-white'
-                  : 'bg-[#12141a] border-violet-500/10 text-gray-400'}
+                         ${
+                           selectedChain === chain.name
+                             ? 'bg-violet-500/20 border-violet-500/40 text-white'
+                             : 'bg-[#12141a] border-violet-500/10 text-gray-400'
+                         }
                          border hover:border-violet-500/40 transition-all duration-300`}
             >
               <span className={chain.color}>{chain.icon}</span>
@@ -255,9 +254,7 @@ const StablecoinPage: React.FC = () => {
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    {getProgressBars(coin.hypeScore)}
-                  </td>
+                  <td className="px-6 py-4">{getProgressBars(coin.hypeScore)}</td>
                   <td className="px-6 py-4">
                     <span className="text-green-400">{coin.maxROI}</span>
                   </td>
