@@ -2,6 +2,7 @@ import { Chart, Filler, LineElement, PointElement, RadialLinearScale, Tooltip, L
 import { Radar } from 'react-chartjs-2';
 import { AssetRisk, ChainRisk, PoolRisk, ProtocolRisk } from '../types';
 import { useEffect, useState } from 'react';
+import { mockData, options, predefinedColors } from '../data/home';
 
 const HomePage: React.FC = () => {
   Chart.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
@@ -25,10 +26,9 @@ const HomePage: React.FC = () => {
     datasets: Dataset[];
   };
 
-  const [data, setData] = useState<ChartData>({
-    labels: [],
-    datasets: [],
-  });
+  const getColorForDataset = (index: number) => predefinedColors[index % predefinedColors.length];
+
+  const [data, setData] = useState<ChartData>(mockData);
 
   const fetchRisk = async <T extends 'chain' | 'protocol' | 'pool' | 'asset'>(type: T) => {
     try {
@@ -79,7 +79,7 @@ const HomePage: React.FC = () => {
       datasets,
     };
 
-    poolData.forEach((pool) => {
+    poolData.forEach((pool, index) => {
       const protocol = protocolData.find((protocol) => protocol.id === pool.platformId) as ProtocolRisk;
       const chain = chainData.find((chain) => chain.id === protocol.chainId) as ChainRisk;
       const [asset1Name, asset2Name] = pool.name.split(' / ');
@@ -106,12 +106,7 @@ const HomePage: React.FC = () => {
           (asset1.risks.volatility + asset2.risks.volatility) / 2,
         ],
         fill: true,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgb(255, 99, 132)',
-        pointBackgroundColor: 'rgb(255, 99, 132)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgb(255, 99, 132)',
+        ...getColorForDataset(index),
       });
     });
 
@@ -126,100 +121,6 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     main();
   }, []);
-
-  const data2 = {
-    labels: [
-      'Chain Maturity Risk',
-      'Chain Market Cap Risk',
-
-      'Protocol TVL Risk',
-      'Protocol Maturity Risk',
-
-      'Pair TVL Risk',
-      'Pair Maturity Risk',
-
-      'Asset Maturity Risk',
-      'Asset Market Cap Risk',
-      'Asset Volatility Risk',
-    ],
-    datasets: [
-      {
-        label: 'DAI / USDC on Uniswap V3 Ethereum',
-        data: [1, 1, 1, 1, 4, 1, 1, 1.5, 1.726327332],
-        fill: true,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgb(255, 99, 132)',
-        pointBackgroundColor: 'rgb(255, 99, 132)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgb(255, 99, 132)',
-      },
-      {
-        label: 'DAI.e / USDC on TraderJoe V2 Avalanche',
-        data: [2, 2, 3, 1, 5, 2, 1, 1.5, 1.726327332],
-        fill: true,
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgb(54, 162, 235)',
-        pointBackgroundColor: 'rgb(54, 162, 235)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgb(54, 162, 235)',
-      },
-      {
-        label: 'USDT / cUSD on Uniswap V3 Celo',
-        data: [1, 5, 1, 1, 5, 4, 1.5, 3, 3.349583194],
-        fill: true,
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgb(75, 192, 192)',
-        pointBackgroundColor: 'rgb(75, 192, 192)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgb(75, 192, 192)',
-      },
-    ],
-  };
-
-  const options = {
-    plugins: {
-      legend: {
-        labels: {
-          font: {
-            size: 14,
-          },
-        },
-        tooltip: {
-          bodyFont: {
-            size: 14, // Set font size for tooltip body
-          },
-          titleFont: {
-            size: 14, // Set font size for tooltip title
-          },
-        },
-      },
-    },
-    elements: {
-      line: {
-        borderWidth: 3, // Custom line width
-      },
-    },
-    scales: {
-      r: {
-        min: 0, // Center value
-        max: 5, // Outer value
-        ticks: {
-          stepSize: 1, // Increment steps between number
-          font: {
-            size: 14, // Set font size for radial ticks
-          },
-        },
-        pointLabels: {
-          font: {
-            size: 14, // Set font size for axis labels
-          },
-        },
-      },
-    },
-  };
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
