@@ -16,11 +16,12 @@ export default [
     ignores: ['**/node_modules/**', '**/dist/**'],
   },
   ...compat.extends(
+    'react-app',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'eslint:recommended',
-    'prettier'
+    'prettier',
   ),
   {
     plugins: {
@@ -40,6 +41,7 @@ export default [
         },
       },
       globals: {
+        React: 'readonly',
         ...globals.node,
         ...globals.browser,
       },
@@ -62,6 +64,7 @@ export default [
         },
       ],
       'no-console': 'warn',
+      'react/react-in-jsx-scope': 'off',
     },
   },
 ];

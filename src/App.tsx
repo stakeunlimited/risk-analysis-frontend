@@ -90,8 +90,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0b0e] text-white">
-      <nav className="bg-[#12141a] border-b border-violet-900/20">
+    <div className="min-h-screen bg-[#ffffff] text-white">
+      <nav className="bg-[#7999f8] border-b border-violet-900/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
@@ -148,7 +148,7 @@ const App: React.FC = () => {
             </div>
             <div className="flex space-x-4">
               <select
-                className="bg-[#1a1d25] text-white rounded-xl px-4 py-2 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none"
+                className="bg-[#d3deff] text-white rounded-xl px-4 py-2 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500 focus:outline-none"
                 value={selectedChain}
                 onChange={(e) => setSelectedChain(e.target.value)}
               >
